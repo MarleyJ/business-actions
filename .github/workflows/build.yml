@@ -1,18 +1,28 @@
-name: GitHub Actions Example
+name: Action Validator
 
-on: [push]
-    pull_request:
-    branches: [ main ]
+on:
+  release:
+    types: [released]
+  workflow_dispatch:
+    inputs:
+      TAG_NAME:
+        description: Validator
+        required: true
 
-jobs: launcher
-build:
-    name: Test
+env:
+  TAG_NAME: ${{ github.event.inputs.TAG_NAME || github.event.release.tag_name }}
+permissions:
+  contents: write
+
+jobs:
+  update_tag:
+    name: 
+    environment:
+      name: validator
     runs-on: ubuntu-latest
-
-steps:
-- uses: actions/checkout@v4
-- uses: actions/setup-node@v4
-with:
-    node-version: 16.x
-    run: npm ci
-    run: npm test
+    steps:
+      - name: 
+        uses: actions/publish-action@v0.2.2
+        with:
+          source-tag: 
+          slack-webhook: 
